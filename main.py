@@ -15,6 +15,8 @@ class Post(BaseModel):
 my_posts = [{"title": "title of post 1", "content": "content of post 1", "id":1}, 
             {"title": "My favorite food", "content": "Sushi", "id":2}]
 
+
+
 @app.get("/")
 def root():
     return {"message": "Hello World!"}
@@ -29,5 +31,9 @@ def create_posts(post: Post):
     post_dict['id'] =  randrange(0,1000000)
     my_posts.append(post_dict)
     return {"data": post_dict}
-# title str, content str
-#uvicorn main:app --reload
+
+
+@app.get("/posts/{id}")
+def get_post(id):
+    print(id)
+    return {"post_detail": f"Here is post {id}"}

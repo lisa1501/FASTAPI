@@ -24,5 +24,5 @@ def get_posts():
 def create_posts(post: Post):
     print(post)
     print(post.dict())
-    return {"data": post}
+    return {"data":post}
 # title str, content str

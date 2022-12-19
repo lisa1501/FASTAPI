@@ -15,7 +15,6 @@ class Post(BaseModel):
 def root():
     return {"message": "Hello World!"}
 
-
 @app.get("/posts")
 def get_posts():
     return {"data": "This is my first post."}
@@ -24,5 +23,5 @@ def get_posts():
 def create_posts(post: Post):
     print(post)
     print(post.dict())
-    return {"data":post}
+    return {"data": post}
 # title str, content str

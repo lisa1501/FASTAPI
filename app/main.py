@@ -72,7 +72,7 @@ def create_posts(post: schemas.PostCreate, db:Session = Depends(get_db)):
     # print(post.dict())
     # print(**post.dict())
     # new_post=models.Post(**post.dict())
-    new_post = models.Post(title = post.title, content= post.content, published = post.published)
+    new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
@@ -125,3 +125,14 @@ def update_post(id:int, updated_post:schemas.PostCreate, db:Session = Depends(ge
     post_query.update(updated_post.dict(), synchronize_session=False)
     db.commit()
     return post_query.first()
+
+
+@app.post("/users",status_code=status.HTTP_201_CREATED)
+def create_user(user:schemas.UserCreate, db:Session = Depends(get_db)):
+    new_user = models.User(**user.dict())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return new_user
+    

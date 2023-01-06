@@ -7,6 +7,7 @@ from app.main import app
 from app import schemas 
 from app.config import settings
 from app.database import get_db, Base
+import pytest
 
 
 SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:password123@localhost:5432/fastapi_test'
@@ -28,13 +29,20 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 client = TestClient(app)
 
-def test_root():
+@pytest.fixture
+def client():
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    yield TestClient(app)
+    
+
+def test_root(client):
     res = client.get("/")
     print(res.json().get('message'))
     assert res.json().get('message') == 'Hello world!'
     assert res.status_code == 200
 
-def test_create_user():
+def test_create_user(client):
     res = client.post(
         "/users/",json={"email": "hello@gmail.com", 
                         "password": "password1234"})

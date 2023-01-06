@@ -30,7 +30,7 @@ app.include_router(vote.router)
 
 @app.get("/")
 def root():
-    return {"message": "Hello World! Happy New Year 2023!!!!!"}
+    return {"message": "Happy New Year 2023!"}
 
 
 

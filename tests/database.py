@@ -26,7 +26,6 @@ def session():
     finally:
         db.close()
 
-
 @pytest.fixture
 def client(session):
     def override_get_db():

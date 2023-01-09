@@ -37,11 +37,11 @@ def test_get_one_post(authorized_client, test_posts):
     assert post.Post.title == test_posts[0].title
 
 
-@pytest.mark.parametrize("title, content, published", [
-    ("awesome new title", "Happy New Year!", True),
+@pytest.mark.parametrize("title, content, published", 
+    [("awesome new title", "Happy New Year!", True),
     ("favorite pizza", "i love coffe", False),
-    ("tallest skyscrapers", "wahoo", True),
-])
+    ("tallest skyscrapers", "wahoo", True),])
+
 def test_create_post(authorized_client, test_user, test_posts, title, content, published):
     res = authorized_client.post(
         "/posts/", json={"title": title, "content": content, "published": published})
